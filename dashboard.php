@@ -16,9 +16,9 @@
       <div class="text-yellow-500 text-6xl font-semibold mb-6"><i class="fa-brands fa-blogger"></i></div>
       <nav>
         <ul>
-          <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Dashboard</a></li>
+          <li><a href="dashboard.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Dashboard</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Articles</a></li>
-          <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Categories</a></li>
+          <li><a href="categories.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Categories</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Tags</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Authors</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Settings</a></li>
@@ -46,6 +46,7 @@
           <i class="fa-solid fa-user text-xl text-yellow-500"></i>
           <i class="fa-solid fa-envelope text-xl text-yellow-500"></i>
           <i class="fa-solid fa-bell text-xl text-yellow-500"></i>
+        </div>
 
       </header>
 
@@ -64,7 +65,7 @@
         </div>
         <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <h2 class="text-2xl text-yellow-500">
-            <button type="submit" class= "fa-solid fa-plus"></button>Categories
+            <i id="add_category_btn" class="fa-solid fa-plus cursor-pointer"></i> Categories
           </h2>
           <p class="text-3xl mt-2">Categories</p>
         </div>
@@ -80,14 +81,39 @@
       </div>
     </div>
   </div>
+
+  <!-- <div class="container mx-auto p-6">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+      <h2 class="text-2xl text-yellow-500 mb-4">
+        <button id="" class="fa-solid fa-plus"></button> Add Category
+      </h2>
+      <form id="categoryForm" action="dashboard.php" method="post" class="">
+        <div class="field_category mb-4">
+          <label class="text-white">The name of category</label>
+          <input type="text" name="name_category" class="form-control p-2 rounded-lg w-full" required>
+        </div>
+        <button type="submit" name="save_category_btn" class="btn_save bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300">Add Category</button>
+      </form>
+    </div>
+  </div> -->
+
   <footer class="bg-gray-800 text-gray-400 py-4 mt-8 text-center">
-    <p>&copy; 2025 Your Blog Name. All rights reserved.</p>
+    <p>&copy; 2025.</p>
     <div class="mt-2 space-x-4">
       <a href="#" class="hover:text-yellow-500">Privacy Policy</a>
       <a href="#" class="hover:text-yellow-500">Terms of Service</a>
       <a href="#" class="hover:text-yellow-500">Contact Us</a>
     </div>
   </footer>
+
+  <script>
+    document.getElementById("add_category_btn").addEventListener("click", function() {
+      var form = document.getElementById("categoryForm");
+      // console.log("hhhhhhhhhhhhhh");
+      
+      form.classList.toggle("hidden");
+    });
+  </script>
 
 </body>
 

@@ -1,16 +1,17 @@
 <?php
-function connect_db() {
-    $host = 'localhost';
-    $username = 'root';
-    $password = '';
-    $database = 'devblog_db';
-    
-    $mysqli = mysqli_connect($host, $username, $password, $database);
-    
-    if (mysqli_connect_errno()) {
-        error_log("Connection failed: " . mysqli_connect_error());
-        die("Connection failed. Please try again later.");
+class Database {
+    private static $pdo = null;
+
+    public static function getInstance() {
+        if (self::$pdo === null) {
+            try {
+                self::$pdo = new PDO("mysql:host=localhost;dbname=devblog_db;charset=utf8mb4", 'root', '');
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Database connection failed: " . $e->getMessage());
+            }
+        }
+        return self::$pdo;
     }
-    
-    return $mysqli;
 }
+?>

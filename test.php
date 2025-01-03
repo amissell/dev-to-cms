@@ -19,11 +19,49 @@
 //     echo"error" $e -> getCode();
 //   }
 // }
+include('database.php');
 
-
-
+if (isset ($_post ['save_category_bt']))
+{
+  $name = $_post['name_category'];
+}
 
 
 
 
 ?>
+
+
+
+
+
+
+
+
+
+// data base connection
+
+<?php
+function connect_db()
+    $host = 'localhost';
+    $username = 'root';
+    $password = '';
+    $database = 'devblog_db';
+    
+    // $mysqli = mysqli_connect($host, $username, $password, $database);
+    
+    // if (mysqli_connect_errno()) {
+    //     error_log("Connection failed: " . mysqli_connect_error());
+    //     die("Connection failed. Please try again later.");
+    // }
+    
+    // return $mysqli;
+
+
+
+    try {
+      $conn =  new PDO("mysql:host=$servername; dbname=$database";$username; $password);
+        } catch (PDOException $e)
+    echo "connection fieled".$e -> getMessage();
+    }
+}
