@@ -19,7 +19,7 @@
           <li><a href="dashboard.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Dashboard</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Articles</a></li>
           <li><a href="categories.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Categories</a></li>
-          <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Tags</a></li>
+          <li><a href="tags.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Tags</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Authors</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Settings</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Profile</a></li>
@@ -65,7 +65,7 @@
         </div>
         <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <h2 class="text-2xl text-yellow-500">
-            <i id="add_category_btn" class="fa-solid fa-plus cursor-pointer"></i> Categories
+            <i id="add_category_btn"></i> Categories
           </h2>
           <p class="text-3xl mt-2">Categories</p>
         </div>

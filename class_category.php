@@ -56,7 +56,7 @@ class Category {
     if ($stmt->execute()) {
         return true; 
     }
-    return false;
+    return false; 
 }
 
 }
