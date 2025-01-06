@@ -8,7 +8,7 @@ $message = '';
 
 if (isset($_GET['edit_id'])) {
   $categoryId = $_GET['edit_id'];
-  $categoryDetails = $category->getCategoryById($categoryId); // Fetch category details
+  $categoryDetails = $category->getCategoryById($categoryId); 
 }
 
 
