@@ -65,3 +65,29 @@ function connect_db()
     echo "connection fieled".$e -> getMessage();
     }
 }
+
+
+
+
+
+// articles get by id and delete
+
+
+// public function getArticleById($id) {
+    //     $sql = "SELECT * FROM articles WHERE id = :id";
+        
+    //     $x = $this->db->prepare($sql);
+    //     $x->bindParam(':id', $id);
+        
+    //     $x->execute();
+    //     return $x->fetch(PDO::FETCH_ASSOC);
+    // }
+
+    // public function deleteArticle($id) {
+    //     $sql = "DELETE FROM articles WHERE id = :id";
+        
+    //     $x = $this->db->prepare($sql);
+    //     $x->bindParam(':id', $id);
+        
+    //     return $x->execute();
+    // }

@@ -17,7 +17,7 @@
       <nav>
         <ul>
           <li><a href="dashboard.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Dashboard</a></li>
-          <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Articles</a></li>
+          <li><a href="articles.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Articles</a></li>
           <li><a href="categories.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Categories</a></li>
           <li><a href="tags.php" class="block py-2 px-4 hover:bg-yellow-500 rounded">Tags</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-yellow-500 rounded">Authors</a></li>

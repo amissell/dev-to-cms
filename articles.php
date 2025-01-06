@@ -1,55 +1,124 @@
 <?php
-require_once 'articles_class.php';
-require_once 'Tag.php';
-require_once 'Category.php';
+include './admin/components/top_bar.php';
+require_once 'articles_class.php'; 
+require_once 'class_category.php';
+require_once 'class_tags.php';
+
+$messageType = '';
+$message = '';
 
 $articleObj = new Article();
+
+$categoryObj = new Category(); 
 $tagObj = new Tag();
-$categoryObj = new Category();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['add_article'])) {
-        $title = $_POST['title'];
-        $content = $_POST['content'];
-        $categoryId = $_POST['category_id'];
-        $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
+$categories = $categoryObj->getAllCategories();
+$tags = $tagObj->getAllTags();
 
-        $result = $articleObj->addArticle($title, $content, $categoryId, $tagIds);
-        if ($result) {
-            echo "Article added successfully.";
-        } else {
-            echo "Failed to add article.";
-        }
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_article'])) {
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $categoryId = $_POST['category_id'];
+    $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
+    $authorId = 1;
+    $status = 'draft';
 
-    if (isset($_POST['update_article'])) {
-        $articleId = $_POST['article_id'];
-        $title = $_POST['title'];
-        $content = $_POST['content'];
-        $categoryId = $_POST['category_id'];
-        $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
 
-        $result = $articleObj->updateArticle($articleId, $title, $content, $categoryId, $tagIds);
-        if ($result) {
-            echo "Article updated successfully.";
-        } else {
-            echo "Failed to update article.";
-        }
-    }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['id'])) {
-        $article = $articleObj->getArticleById($_GET['id']);
-        if ($article) {
-            echo "<h1>" . $article['title'] . "</h1>";
-            echo "<p>" . $article['content'] . "</p>";
-        } else {
-            echo "Article not found.";
-        }
+    if ($articleObj->addArticle($title, $content, $categoryId, $tagIds)) {
+        $message = "Article added successfully!";
+        $messageType = "success";
     } else {
-        $articles = $articleObj->getAllArticles();
-        foreach ($articles as $article) {
-            echo "<h2><a href='?id=" . $article['id'] . "'>" . $article['title'] . "</a></h2>";
-        }
+        $message = "Failed to add article.";
+        $messageType = "error";
     }
 }
+
+$articles = $articleObj->getAllArticles();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Manage Articles</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/983fb12c47.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+  <div class="flex min-h-screen">
+    <?php include './admin/components/side_bar.php'; ?>
+    <div class="flex-1 p-8">
+      <header class="mb-8">
+        <h2 class="text-4xl text-yellow-500 font-semibold">Manage Articles</h2>
+      </header>
+
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-8">
+        <h3 class="text-2xl text-yellow-500 mb-4">Add New Article</h3>
+        <form action="articles.php" method="POST">
+          <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-300">Title</label>
+            <input type="text" id="title" name="title" required
+              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+          </div>
+          <div class="mb-4">
+            <label for="content" class="block text-sm font-medium text-gray-300">Content</label>
+            <textarea id="content" name="content" rows="5" required
+              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="category_id" class="block text-sm font-medium text-gray-300">Category</label>
+            <select id="category_id" name="category_id" required
+              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              <option value="" >Select a category</option>
+              <?php foreach ($categories as $category): ?>
+                <option value="<?= $category['id']; ?>">
+                  <?= htmlspecialchars($category['name']); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="tag_ids" class="block text-sm font-medium text-gray-300">Tags</label>
+            <select id="tag_ids" name="tag_ids[]" multiple
+              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              <?php foreach ($tags as $tag): ?>
+                <option value="<?= $tag['id']; ?>">
+                  <?= htmlspecialchars($tag['name']); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div>
+            <button type="submit" name="add_article"
+              class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              Add Article
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+        <h3 class="text-2xl text-yellow-500 mb-4">Existing Articles</h3>
+        <ul class="space-y-4">
+          <?php foreach ($articles as $article): ?>
+            <li class="py-3 border-b border-gray-600 flex justify-between">
+              <div>
+                <strong class="text-yellow-500">Title: </strong> <?= htmlspecialchars($article['title']); ?><br>
+                <strong class="text-gray-300">Category: </strong> <?= htmlspecialchars($article['category_name']); ?><br>
+              </div>
+              <!-- <div>
+                <a href="articles.php?delete_id=<?= $article['id'] ?>" class="text-yellow-500 hover:text-yellow-300">Delete</a>
+              </div> -->
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <?php include './admin/components/footer.php'; ?>
+</body>
+
+</html>
