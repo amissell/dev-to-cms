@@ -1,8 +1,8 @@
 <?php
-include './admin/components/top_bar.php';
-require_once 'articles_class.php';
-require_once 'class_category.php';
-require_once 'class_tags.php';
+include '../components/top_bar.php';
+require_once '../includes/articles_class.php';
+require_once '../includes/class_category.php';
+require_once '../includes/class_tags.php';
 
 $messageType = '';
 $message = '';
@@ -77,7 +77,7 @@ $tagCount = $tagObj->countTags();
 </head>
 <body class="bg-gray-900 text-white font-sans">
   <div class="flex min-h-screen">
-    <?php include './admin/components/side_bar.php'; ?>
+    <?php include '../components/side_bar.php'; ?>
     <div class="flex-1 p-8">
       <header class="mb-8">
         <h2 class="text-4xl text-yellow-500 font-semibold">Manage Articles</h2>
@@ -151,6 +151,6 @@ $tagCount = $tagObj->countTags();
       </div>
     </div>
   </div>
-  <?php include './admin/components/footer.php'; ?>
+  <?php include '../components/footer.php'; ?>
 </body>
 </html>

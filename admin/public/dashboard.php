@@ -1,8 +1,8 @@
 <?php
-require_once 'articles_class.php';
-require_once 'class_category.php';
-require_once 'class_tags.php';
-require_once 'Database.php';
+require_once '../includes/articles_class.php';
+require_once '../includes/class_category.php';
+require_once '../includes/class_tags.php';
+require_once '../includes/Database.php';
 
 
 $articleCount = Article::getArticleCount();  
