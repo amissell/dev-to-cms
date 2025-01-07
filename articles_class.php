@@ -99,4 +99,24 @@ class Article
 
         return $stmt->execute();
     }
+
+
+    // to cont the articles
+public function countArticles()
+{
+    $sql = "SELECT COUNT(*) FROM articles";
+    $stmt = $this->db->query($sql);
+    return $stmt->fetchColumn();
+}
+
+
+// In articles_class.php
+public static function getArticleCount() {
+    $db = Database::getInstance();  // Ensure this is getting the database connection
+    $query = "SELECT COUNT(*) FROM articles";
+    $result = $db->query($query);
+    return $result->fetchColumn();  // Assuming it's a PDO connection
+}
+
+
 }

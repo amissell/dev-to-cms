@@ -57,6 +57,13 @@ if (isset($_GET['edit_id'])) {
 }
 
 $articles = $articleObj->getAllArticles();
+
+
+// Fetch counts of articles, categories, and tags
+$articleCount = $articleObj->countArticles();
+$categoryCount = $categoryObj->countCategories();
+$tagCount = $tagObj->countTags();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

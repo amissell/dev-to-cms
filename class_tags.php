@@ -1,14 +1,17 @@
 <?php
 require_once 'Database.php';
 
-class Tag {
+class Tag
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = Database::getInstance();
     }
 
-    public function addTag($tagName) {
+    public function addTag($tagName)
+    {
         $sql = "INSERT INTO tags (name) VALUES (:name)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':name', $tagName);
@@ -19,34 +22,38 @@ class Tag {
         return false;
     }
 
-    public function getAllTags() {
+    public function getAllTags()
+    {
         $sql = "SELECT * FROM tags";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTagById($id) {
+    public function getTagById($id)
+    {
         $sql = "SELECT * FROM tags WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC); 
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateTag($id, $newName) {
+    public function updateTag($id, $newName)
+    {
         $sql = "UPDATE tags SET name = :name WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':name', $newName);
         $stmt->bindParam(':id', $id);
 
         if ($stmt->execute()) {
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
 
-    public function deleteTag($id) {
+    public function deleteTag($id)
+    {
         $sql = "DELETE FROM tags WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
@@ -56,5 +63,19 @@ class Tag {
         }
         return false;
     }
+
+    // count tags 
+    public function countTags()
+    {
+        $sql = "SELECT COUNT(*) FROM tags";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchColumn();
+    }
+
+    public static function getTagCount() {
+        $db = Database::getInstance();  // Ensure this is getting the database connection
+        $query = "SELECT COUNT(*) FROM tags";
+        $result = $db->query($query);
+        return $result->fetchColumn();  // Assuming it's a PDO connection
+    }
 }
-?>

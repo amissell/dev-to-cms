@@ -1,3 +1,16 @@
+<?php
+require_once 'articles_class.php';
+require_once 'class_category.php';
+require_once 'class_tags.php';
+require_once 'Database.php';
+
+
+$articleCount = Article::getArticleCount();  
+$tagCount = Tag::getTagCount();  
+$categoryCount = Category::getCategoryCount();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,17 +70,17 @@
         </div>
         <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <h2 class="text-2xl text-yellow-500">Articles</h2>
-          <p class="text-3xl mt-2">75</p>
+          <p class="text-3xl mt-2"><?= $articleCount ?></p>
         </div>
         <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <h2 class="text-2xl text-yellow-500">Tags</h2>
-          <p class="text-3xl mt-2">Tag</p>
+          <p class="text-3xl mt-2"><?= $tagCount ?></p>
         </div>
         <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
           <h2 class="text-2xl text-yellow-500">
             <i id="add_category_btn"></i> Categories
           </h2>
-          <p class="text-3xl mt-2">Categories</p>
+          <p class="text-3xl mt-2"><?= $categoryCount ?></p>
         </div>
       </div>
 
