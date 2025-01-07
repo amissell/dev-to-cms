@@ -72,7 +72,6 @@ $articles = $articleObj->getAllArticles();
             <label for="category_id" class="block text-sm font-medium text-gray-300">Category</label>
             <select id="category_id" name="category_id" multiple
               class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
-              <option value="">Select a category</option>
               <?php foreach ($categories as $category): ?>
                 <option value="<?= $category['id']; ?>">
                   <?= htmlspecialchars($category['name']); ?>
