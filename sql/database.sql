@@ -25,7 +25,6 @@ CREATE TABLE categories (
 CREATE TABLE articles (
     id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    slug VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     excerpt TEXT,
     meta_description VARCHAR(160),
@@ -37,15 +36,18 @@ CREATE TABLE articles (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     views INTEGER DEFAULT 0,
-    UNIQUE KEY idx_articles_slug (slug),
     KEY idx_articles_category (category_id),
     KEY idx_articles_author (author_id),
     KEY idx_articles_status_date (status, scheduled_date),
-    CONSTRAINT fk_articles_category FOREIGN KEY (category_id) 
-        REFERENCES categories (id),
-    CONSTRAINT fk_articles_author FOREIGN KEY (author_id) 
-        REFERENCES users (id)
+    CONSTRAINT fk_articles_category FOREIGN KEY (category_id)
+        REFERENCES categories (id)
+    -- CONSTRAINT fk_articles_author FOREIGN KEY (author_id) 
+        -- REFERENCES users (id)
 )
+
+
+
+
 
 -- Create tags table
 CREATE TABLE tags (
@@ -64,3 +66,31 @@ CREATE TABLE article_tags (
     CONSTRAINT fk_article_tags_tag FOREIGN KEY (tag_id) 
         REFERENCES tags (id) ON DELETE CASCADE
 )
+
+ALTER TABLE articles
+DROP COLUMN excerpt
+DROP COLUMN meta_description,
+
+DROP COLUMN featured_image,
+DROP COLUMN author_id,
+DROP COLUMN created_at,
+DROP COLUMN updated_at,
+
+
+DROP COLUMN views,
+
+MODIFY COLUMN id INT AUTO_INCREMENT PRIMARY KEY,
+
+MODIFY COLUMN status VARCHAR(50) NOT NULL
+MODIFY COLUMN scheduled_date DATE NOT NULL;
+
+-- Optionally, add foreign key constraint
+ALTER TABLE articles
+ADD CONSTRAINT fk_articles_category FOREIGN KEY (category_id) REFERENCES categories(id);
+
+-- Optionally, drop old indexes
+ALTER TABLE articles
+DROP INDEX idx_articles_slug,
+DROP INDEX idx_articles_category,
+DROP INDEX idx_articles_author,
+DROP INDEX idx_articles_status_date;

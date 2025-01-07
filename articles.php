@@ -1,6 +1,6 @@
 <?php
 include './admin/components/top_bar.php';
-require_once 'articles_class.php'; 
+require_once 'articles_class.php';
 require_once 'class_category.php';
 require_once 'class_tags.php';
 
@@ -9,29 +9,29 @@ $message = '';
 
 $articleObj = new Article();
 
-$categoryObj = new Category(); 
+$categoryObj = new Category();
 $tagObj = new Tag();
 
 $categories = $categoryObj->getAllCategories();
 $tags = $tagObj->getAllTags();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_article'])) {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $categoryId = $_POST['category_id'];
-    $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
-    $authorId = 1;
-    $status = 'draft';
+  $title = $_POST['title'];
+  $content = $_POST['content'];
+  $categoryId = $_POST['category_id'];
+  $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
+  $status = 'draft';
+  $scheduledDate = date('Y-m-d H:i:s');
 
-
-    if ($articleObj->addArticle($title, $content, $categoryId, $tagIds)) {
-        $message = "Article added successfully!";
-        $messageType = "success";
-    } else {
-        $message = "Failed to add article.";
-        $messageType = "error";
-    }
+  if ($articleObj->addArticle($title, $content, $categoryId, $status, $scheduledDate, $tagIds)) {
+    $message = "Article added successfully!";
+    $messageType = "success";
+  } else {
+    $message = "Failed to add article.";
+    $messageType = "error";
+  }
 }
+
 
 $articles = $articleObj->getAllArticles();
 ?>
@@ -70,9 +70,9 @@ $articles = $articleObj->getAllArticles();
           </div>
           <div class="mb-4">
             <label for="category_id" class="block text-sm font-medium text-gray-300">Category</label>
-            <select id="category_id" name="category_id" required
+            <select id="category_id" name="category_id" multiple
               class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
-              <option value="" >Select a category</option>
+              <option value="">Select a category</option>
               <?php foreach ($categories as $category): ?>
                 <option value="<?= $category['id']; ?>">
                   <?= htmlspecialchars($category['name']); ?>
@@ -90,6 +90,7 @@ $articles = $articleObj->getAllArticles();
                 </option>
               <?php endforeach; ?>
             </select>
+
           </div>
           <div>
             <button type="submit" name="add_article"
@@ -107,11 +108,16 @@ $articles = $articleObj->getAllArticles();
             <li class="py-3 border-b border-gray-600 flex justify-between">
               <div>
                 <strong class="text-yellow-500">Title: </strong> <?= htmlspecialchars($article['title']); ?><br>
-                <strong class="text-gray-300">Category: </strong> <?= htmlspecialchars($article['category_name']); ?><br>
+                <strong class="text-gray-300">Category: </strong> <?= htmlspecialchars($article['categories']); ?><br>
+                <strong class="text-gray-300">Content: </strong> <?= htmlspecialchars($article['content']); ?><br>
+                <strong class="text-gray-300">Tags: </strong> <?= htmlspecialchars($article['tags']); ?><br>
               </div>
-              <!-- <div>
+              <div>
                 <a href="articles.php?delete_id=<?= $article['id'] ?>" class="text-yellow-500 hover:text-yellow-300">Delete</a>
-              </div> -->
+              </div>
+              <div>
+                <a href="articles.php?edit_id=<?= $article['id'] ?>" class="text-yellow-500 hover:text-yellow-300">edit</a>
+              </div>
             </li>
           <?php endforeach; ?>
         </ul>
