@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_article'])) {
   // Sanitize user input to prevent XSS and other attacks
   $title = htmlspecialchars(trim($_POST['title']));
   $content = htmlspecialchars(trim($_POST['content']));
-  $categoryId = $_POST['category_id'];
+  $categoryId = $_POST['categy_id'];
   $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
   $status = 'draft';
   $scheduledDate = date('Y-m-d H:i:s');
@@ -42,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_article'])) {
 if (isset($_GET['delete_id'])) {
   $articleId = $_GET['delete_id'];
   if ($articleObj->deleteArticle($articleId)) {
-      $message = "Article deleted successfully!";
-      $messageType = "success";
+    $message = "Article deleted successfully!";
+    $messageType = "success";
   } else {
-      $message = "Failed to delete article.";
-      $messageType = "error";
+    $message = "Failed to delete article.";
+    $messageType = "error";
   }
 }
 
@@ -67,6 +67,7 @@ $tagCount = $tagObj->countTags();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,6 +76,7 @@ $tagCount = $tagObj->countTags();
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/983fb12c47.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="bg-gray-900 text-white font-sans">
   <div class="flex min-h-screen">
     <?php include '../components/side_bar.php'; ?>
@@ -89,7 +91,7 @@ $tagCount = $tagObj->countTags();
           <div class="mb-4">
             <label for="title" class="block text-sm font-medium text-gray-300">Title</label>
             <input type="text" id="title" name="title" required
-              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500" 
+              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
               value="<?= isset($article) ? htmlspecialchars($article['title']) : ''; ?>">
           </div>
           <div class="mb-4">
@@ -98,9 +100,8 @@ $tagCount = $tagObj->countTags();
               class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"><?= isset($article) ? htmlspecialchars($article['content']) : ''; ?></textarea>
           </div>
           <div class="mb-4">
-            <label for="category_id" class="block text-sm font-medium text-gray-300">Category</label>
-            <select id="category_id" name="category_id" multiple
-              class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            <label for="category" class="block text-sm font-medium text-gray-300">Category</label>
+            <select id="category" name="categy_id" class="mt-1 p-3 w-full bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
               <?php foreach ($categories as $category): ?>
                 <option value="<?= $category['id']; ?>" <?= isset($article) && $article['category_id'] == $category['id'] ? 'selected' : ''; ?>>
                   <?= htmlspecialchars($category['name']); ?>
@@ -153,4 +154,5 @@ $tagCount = $tagObj->countTags();
   </div>
   <?php include '../components/footer.php'; ?>
 </body>
+
 </html>

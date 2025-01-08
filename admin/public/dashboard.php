@@ -95,21 +95,6 @@ $categoryCount = Category::getCategoryCount();
     </div>
   </div>
 
-  <!-- <div class="container mx-auto p-6">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-      <h2 class="text-2xl text-yellow-500 mb-4">
-        <button id="" class="fa-solid fa-plus"></button> Add Category
-      </h2>
-      <form id="categoryForm" action="dashboard.php" method="post" class="">
-        <div class="field_category mb-4">
-          <label class="text-white">The name of category</label>
-          <input type="text" name="name_category" class="form-control p-2 rounded-lg w-full" required>
-        </div>
-        <button type="submit" name="save_category_btn" class="btn_save bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300">Add Category</button>
-      </form>
-    </div>
-  </div> -->
-
   <footer class="bg-gray-800 text-gray-400 py-4 mt-8 text-center">
     <p>&copy; 2025.</p>
     <div class="mt-2 space-x-4">
@@ -122,7 +107,6 @@ $categoryCount = Category::getCategoryCount();
   <script>
     document.getElementById("add_category_btn").addEventListener("click", function() {
       var form = document.getElementById("categoryForm");
-      // console.log("hhhhhhhhhhhhhh");
       
       form.classList.toggle("hidden");
     });
