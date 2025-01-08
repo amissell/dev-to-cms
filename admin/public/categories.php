@@ -1,6 +1,7 @@
-<?php include './admin/components/top_bar.php'; ?>
 <?php
-require_once 'class_category.php';
+include '../components/top_bar.php';
+
+require_once '../includes/class_category.php';
 
 $category = new Category();
 $messageType = '';
@@ -73,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_category'])) {
 
 <body class="bg-gray-900 text-white font-sans">
   <div class="flex min-h-screen">
-    <?php include './admin/components/side_bar.php'; ?>
+    <?php include '../components/side_bar.php'; ?>
     <div class="flex-1 p-8">
       <header class="mb-8">
         <h2 class="text-4xl text-yellow-500 font-semibold">Manage Categories</h2>
@@ -119,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_category'])) {
     </div>
   </div>
 
-  <?php include './admin/components/footer.php'; ?>
+  <?php include '../components/footer.php'; ?>
 </body>
 
 </html>
